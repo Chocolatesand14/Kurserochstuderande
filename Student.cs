@@ -1,61 +1,53 @@
 using System;
 using System.Collections.Generic;
 
-// Student-klassen representerar en student med namn, ålder och en lista av kurser som studenten är registrerad i.
 public class Student
 {
-
-    // String bestående av fält med: namn, ålder och lista av kurser.
+    // Studentens namn
     public string Namn { get; set; }
-    public string Tilltalsnamn { get; set; }
-    public string Efternamn { get; set; }
-    public int Ålder { get; set; }
+
+    // Kurser som studenten går
     public List<Kurs> Kurser { get; set; }
 
-    public Student(string tilltalsnamn, string efternamn, int ålder)
+    // Konstruktor
+    public Student(string namn)
     {
-        Tilltalsnamn = tilltalsnamn;
-        Efternamn = efternamn;
-        Ålder = ålder;
-        Namn = $"{tilltalsnamn} {efternamn}";
+        Namn = namn;
         Kurser = new List<Kurs>();
     }
 
-    // Metod för att registrera en student i en kurs
+    // Registrera studenten i en kurs
     public void RegistreraIEnKurs(Kurs kurs)
     {
-    kurs.RegistreraStudent(this);
+        kurs.RegistreraStudent(this);
     }
 
-    // Metod för att avregistrera en student från en kurs
+    // Avregistrera studenten från en kurs
     public void AvregistreraFrånEnKurs(Kurs kurs)
     {
-    kurs.AvregistreraStudent(this);
+        kurs.AvregistreraStudent(this);
     }
 
-    //Metod för skriva ut studentens schema med kurser och deras namn
+    // Skriver ut studentens kurser
     public void SkrivUtSchema()
     {
-        Console.WriteLine($"Schema - Student: {Namn}, Ålder: {Ålder}");
-    if (Kurser.Count == 0)
-    //Felmeddelande om inga kurser är registrerade
+        Console.WriteLine($"\nSchema för {Namn}:");
+
+        if (Kurser.Count == 0)
         {
             Console.WriteLine("Inga kurser registrerade.");
             return;
         }
 
-        foreach (var kurs in Kurser)
+        foreach (Kurs kurs in Kurser)
         {
-            Console.WriteLine($"Kurs: {kurs.KursNamn}");
+            Console.WriteLine($"- {kurs.KursNamn}");
         }
     }
-    //Metod för att skriva ut studentens fullständiga namn och efternamn.
+
+    // Skriver ut studentens namn
     public override string ToString()
     {
         return Namn;
     }
-
-// Metod för att hämta studentens fullständiga namn
-public string GetFullständigtNamn => $"{Tilltalsnamn} {Efternamn}";
 }
-   

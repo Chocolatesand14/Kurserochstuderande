@@ -6,97 +6,103 @@ public class Kurs
     // Kursens namn
     public string KursNamn { get; set; }
 
-    // Maximalt antal studenter som kan registreras i kursen
+    // Maximalt antal studenter
     public int MaxAntalStudenter { get; set; }
 
-    // Lista över studenter som är registrerade i kursen
+    // Lista över studenter
     public List<Student> Studenter { get; set; }
 
-
-    // Kursen skapas med ett namn och ett maximalt antal studenter
-    public Kurs(string kursNamn, int maxAntalStudenter = 30)
+    // Konstruktor
+    public Kurs(string kursNamn, int maxAntalStudenter)
     {
         KursNamn = kursNamn;
         MaxAntalStudenter = maxAntalStudenter;
         Studenter = new List<Student>();
     }
 
-
-    // Används för att registrera en student i kursen
-    public bool RegistreraStudent(Student student)
+    // Registrerar en student
+    public void RegistreraStudent(Student student)
     {
-        // Kollar om studenten redan är registrerad
+        // Kontrollera dubbelregistrering
         if (Studenter.Contains(student))
         {
             Console.WriteLine(
-                $"Studenten {student.Namn} är redan registrerad i kursen {KursNamn}."
+                $"{student.Namn} är redan registrerad i {KursNamn}."
             );
 
-            return false;
+            return;
         }
 
-        // Kollar om kursen är full
+        // Kontrollera om kursen är full
         if (Studenter.Count >= MaxAntalStudenter)
         {
             Console.WriteLine(
-                $"Kursen {KursNamn} är full. Kan inte registrera fler studenter."
+                $"Kursen {KursNamn} är full."
             );
 
-            return false;
+            return;
         }
 
-        // Lägger till studenten i listan
+        // Lägg till studenten i kursen
         Studenter.Add(student);
 
-        // Lägger till kursen i studentens lista av kurser
+        // Lägg till kursen hos studenten
         if (!student.Kurser.Contains(this))
         {
             student.Kurser.Add(this);
         }
 
-        return true;
+        Console.WriteLine(
+            $"{student.Namn} har registrerats i {KursNamn}."
+        );
     }
-  
-    // Används för att avregistrera en student från kursen
+
+    // Avregistrerar en student
     public void AvregistreraStudent(Student student)
     {
         if (!Studenter.Contains(student))
         {
             Console.WriteLine(
-                $"Studenten {student.Namn} är inte registrerad i kursen {KursNamn}."
+                $"{student.Namn} är inte registrerad i {KursNamn}."
             );
+
             return;
         }
-    
-        //Avregistrerar studenten från kursen
+
+        // Ta bort studenten från kursen
         Studenter.Remove(student);
 
-        //Avregistrerar kursen från studentens lista av kurser
+        // Ta bort kursen från studentens lista
         if (student.Kurser.Contains(this))
         {
             student.Kurser.Remove(this);
         }
+
+        Console.WriteLine(
+            $"{student.Namn} har avregistrerats från {KursNamn}."
+        );
     }
-    //Skriver ut alla studenter som är registrerade i kursen
+
+    // Skriver ut alla studenter i kursen
     public void NärvaroLista()
     {
-        Console.WriteLine($"Närvaro lista för kursen: {KursNamn}");
-     
-         if (Studenter.Count == 0)
+        Console.WriteLine($"\nNärvarolista för {KursNamn}:");
+
+        if (Studenter.Count == 0)
         {
-            Console.WriteLine("Inga studenter registrerade i kursen.");
+            Console.WriteLine("Inga studenter registrerade.");
             return;
         }
 
-            foreach (Student student in Studenter)
-            {
-                Console.WriteLine($"- {student.Namn}");
-            }
-        }
-
-        //Skriver ut kursens namn och antal registrerade studenter
-        public override string ToString()
+        foreach (Student student in Studenter)
         {
-            return $"Kurs: {KursNamn}, Registrerade studenter: {Studenter.Count}/{MaxAntalStudenter}";
+            Console.WriteLine($"- {student.Namn}");
         }
+    }
+
+    // Skriver ut kursens information
+    public override string ToString()
+    {
+        return $"{KursNamn} ({Studenter.Count}/{MaxAntalStudenter} platser)";
+    }
 }
