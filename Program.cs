@@ -1,41 +1,65 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-// Lade till en ny klass för att köra programmet, så lade VSC in en massa kod själv. Jag ska se hur det fungerar 
+// Programmet som kör våra kurser och studenter
 class Program
 {
     static void Main(string[] args)
     {
-        // Skapa några kurser
-        Kurs kurs1 = new Kurs("Matematik");
-        Kurs kurs2 = new Kurs("Fysik");
-        Kurs kurs3 = new Kurs("Kemi");
+        // Skapa kurser
+        Kurs programmering = new Kurs("Programmering");
+        Kurs matematik = new Kurs("Matematik");
+        Kurs bildOchForm = new Kurs("Bild och Form");
+        Kurs psykologi = new Kurs("Psykologi");
 
-        // Skapa några studenter
-        Student student1 = new Student("Alice", "Ahlquist", 20);
-        Student student2 = new Student("Bob", "Bergström", 22);
-        Student student3 = new Student("Charlie", "Carlsson", 21);
+        // Skapa studenter
+        Student alice = new Student("Alice", "Ahlquist", 20);
+        Student bob = new Student("Bob", "Bergström", 22);
+        Student draven = new Student("Draven", "Andersson", 21);
 
-        // Registrera studenter i kurser
-        student1.RegistreraIEnKurs(kurs1);
-        student1.RegistreraIEnKurs(kurs2);
-        student2.RegistreraIEnKurs(kurs1);
-        student3.RegistreraIEnKurs(kurs3);
+        // Registrera Alice i Programmering
+        programmering.RegistreraStudent(alice);
 
-        // Skriv ut scheman för studenter
-        student1.SkrivUtSchema();
-        student2.SkrivUtSchema();
-        student3.SkrivUtSchema();
+        // Visa kursens studenter
+        programmering.NärvaroLista();
 
-        // Avregistrera en student från en kurs
-        student1.AvregistreraFrånEnKurs(kurs2);
+        // Visa Alice schema
+        alice.SkrivUtSchema();
 
-        // Skriv ut schemat igen efter avregistrering
-        Console.WriteLine("\nEfter avregistrering:");
-        student1.SkrivUtSchema();
+        // Registrera Bob i Programmering via studenten
+        bob.RegistreraIEnKurs(programmering);
+
+        // Visa kursens studenter
+        programmering.NärvaroLista();
+
+        // Visa Bobs schema
+        bob.SkrivUtSchema();
+
+        // Försök registrera Draven i Programmering
+        draven.RegistreraIEnKurs(programmering);
+
+        // Försök registrera Bob igen
+        // Detta testar dubbelregistrering
+        programmering.RegistreraStudent(bob);
+
+        // Avregistrera Alice från Programmering
+        programmering.AvregistreraStudent(alice);
+
+        Console.WriteLine("\nEfter avregistrering av Alice från Programmering:");
+
+        // Visa kursens studenter efter avregistrering
+        programmering.NärvaroLista();
+
+        // Visa Alice schema efter avregistrering
+        alice.SkrivUtSchema();
+
+        // Försök avregistrera Draven
+        // Draven är inte registrerad i kursen
+        programmering.AvregistreraStudent(draven);
     }
-}   
+}
+
 
