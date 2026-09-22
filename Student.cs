@@ -22,7 +22,7 @@ public class Student
     }
 
     // Metod för att registrera en student i en kurs
-    public bool RegistreraIEnKurs(Kurs kurs)
+    public void RegistreraIEnKurs(Kurs kurs)
     {
     kurs.RegistreraStudent(this);
     }
@@ -41,13 +41,21 @@ public class Student
     //Felmeddelande om inga kurser är registrerade
         {
             Console.WriteLine("Inga kurser registrerade.");
+            return;
         }
-        else
+
+        foreach (var kurs in Kurser)
         {
-            Console.WriteLine("Registrerade kurser:");
-            foreach (var kurs in Kurser)
-            {
-                Console.WriteLine($"- {kurs.KursNamn}");
-            }
+            Console.WriteLine($"Kurs: {kurs.KursNamn}");
         }
     }
+    //Metod för att skriva ut studentens fullständiga namn och efternamn.
+    public override string ToString()
+    {
+        return Namn;
+    }
+
+// Metod för att hämta studentens fullständiga namn
+public string GetFullständigtNamn => $"{Tilltalsnamn} {Efternamn}";
+}
+   
