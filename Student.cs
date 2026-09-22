@@ -30,7 +30,7 @@ public class Student
     // Metod för att avregistrera en student från en kurs
     public void AvregistreraFrånEnKurs(Kurs kurs)
     {
-    kurs.Studenter.Remove(this);
+    kurs.AvregistreraStudent(this);
     }
 
     //Metod för skriva ut studentens schema med kurser och deras namn

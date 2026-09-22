@@ -46,7 +46,10 @@ public class Kurs
         }
 
         // Lägger till studenten i listan
-          if (!student.Kurser.Contains(this))
+        Studenter.Add(student);
+
+        // Lägger till kursen i studentens lista av kurser
+        if (!student.Kurser.Contains(this))
         {
             student.Kurser.Add(this);
         }
