@@ -1,0 +1,32 @@
+    static void Main(string[] args)
+    {
+        // Skapa några kurser
+        Kurs kurs1 = new Kurs("Matematik");
+        Kurs kurs2 = new Kurs("Fysik");
+        Kurs kurs3 = new Kurs("Kemi");
+
+        // Skapa några studenter
+        Student student1 = new Student("Alice", "Ahlquist", 20);
+        Student student2 = new Student("Bob", "Bergström", 22);
+        Student student3 = new Student("Charlie", "Carlsson", 21);
+
+        // Registrera studenter i kurser
+        student1.RegistreraIEnKurs(kurs1);
+        student1.RegistreraIEnKurs(kurs2);
+        student2.RegistreraIEnKurs(kurs1);
+        student3.RegistreraIEnKurs(kurs3);
+
+        // Skriv ut scheman för studenter
+        student1.SkrivUtSchema();
+        student2.SkrivUtSchema();
+        student3.SkrivUtSchema();
+
+        // Avregistrera en student från en kurs
+        student1.AvregistreraFrånEnKurs(kurs2);
+
+        // Skriv ut schemat igen efter avregistrering
+        Console.WriteLine("\nEfter avregistrering:");
+        student1.SkrivUtSchema();
+    }
+
+//Det är den koden som VSC tänkte ut av sig själv och den gick inte att köra alls
