@@ -46,8 +46,54 @@ public class Kurs
         }
 
         // Lägger till studenten i listan
-        Studenter.Add(student);
+          if (!student.Kurser.Contains(this))
+        {
+            student.Kurser.Add(this);
+        }
 
         return true;
     }
+  
+    // Används för att avregistrera en student från kursen
+    public void AvregistreraStudent(Student student)
+    {
+        if (!Studenter.Contains(student))
+        {
+            Console.WriteLine(
+                $"Studenten {student.Namn} är inte registrerad i kursen {KursNamn}."
+            );
+            return;
+        }
+    
+        //Avregistrerar studenten från kursen
+        Studenter.Remove(student);
+
+        //Avregistrerar kursen från studentens lista av kurser
+        if (student.Kurser.Contains(this))
+        {
+            student.Kurser.Remove(this);
+        }
+    }
+    //Skriver ut alla studenter som är registrerade i kursen
+    public void NärvaroLista()
+    {
+        Console.WriteLine($"Närvaro lista för kursen: {KursNamn}");
+     
+         if (Studenter.Count == 0)
+        {
+            Console.WriteLine("Inga studenter registrerade i kursen.");
+            return;
+        }
+
+            foreach (Student student in Studenter)
+            {
+                Console.WriteLine($"- {student.Namn}");
+            }
+        }
+
+        //Skriver ut kursens namn och antal registrerade studenter
+        public override string ToString()
+        {
+            return $"Kurs: {KursNamn}, Registrerade studenter: {Studenter.Count}/{MaxAntalStudenter}";
+        }
 }
