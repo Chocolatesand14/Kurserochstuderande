@@ -4,97 +4,72 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Skapa kurser
+        // Skapar kurser
         Kurs programmering = new Kurs("Programmering", 2);
         Kurs matematik = new Kurs("Matematik", 3);
         Kurs bildOchForm = new Kurs("Bild och Form", 4);
         Kurs psykologi = new Kurs("Psykologi", 2);
 
-        // Skapa studenter
+
+        // Skapar studenter
         Student alice = new Student("Alice");
         Student bob = new Student("Bob");
         Student draven = new Student("Draven");
 
-        // ==========================================
-        // Alice registreras via kursen
-        // ==========================================
 
-        programmering.RegistreraStudent(alice);
+        // Alice läggs till via kursen
+        programmering.LäggTillStudent(alice);
 
-        programmering.NärvaroLista();
-        alice.SkrivUtSchema();
+        programmering.VisaStudenter();
+        alice.VisaKurser();
 
 
-        // ==========================================
-        // Bob registreras via studenten
-        // ==========================================
+        // Bob läggs till via studenten
+        bob.BörjaKurs(programmering);
 
-        bob.RegistreraIEnKurs(programmering);
-
-        programmering.NärvaroLista();
-        bob.SkrivUtSchema();
+        programmering.VisaStudenter();
+        bob.VisaKurser();
 
 
-        // ==========================================
-        // Testa full kurs
-        // ==========================================
-
-        draven.RegistreraIEnKurs(programmering);
+        // Testar vad som händer när kursen är full
+        draven.BörjaKurs(programmering);
 
 
-        // ==========================================
-        // Testa dubbelregistrering
-        // ==========================================
-
-        bob.RegistreraIEnKurs(programmering);
+        // Testar att lägga till samma student igen
+        bob.BörjaKurs(programmering);
 
 
-        // ==========================================
-        // Visa scheman
-        // ==========================================
+        // Visar alla studenters kurser
+        Console.WriteLine("\n--- Studenternas kurser ---");
 
-        Console.WriteLine("\n--- Scheman ---");
-
-        alice.SkrivUtSchema();
-        bob.SkrivUtSchema();
-        draven.SkrivUtSchema();
+        alice.VisaKurser();
+        bob.VisaKurser();
+        draven.VisaKurser();
 
 
-        // ==========================================
-        // Ta bort Alice
-        // ==========================================
+        // Tar bort Alice från kursen
+        programmering.TaBortStudent(alice);
 
-        programmering.AvregistreraStudent(alice);
+        Console.WriteLine("\n--- Efter att Alice tagits bort ---");
 
-        Console.WriteLine("\n--- Efter att Alice avregistrerats ---");
-
-        programmering.NärvaroLista();
-        alice.SkrivUtSchema();
+        programmering.VisaStudenter();
+        alice.VisaKurser();
 
 
-        // ==========================================
-        // Testa att ta bort någon som inte finns
-        // ==========================================
-
-        programmering.AvregistreraStudent(draven);
+        // Försöker ta bort en student som inte går kursen
+        programmering.TaBortStudent(draven);
 
 
-        // ==========================================
-        // Alice går med igen
-        // ==========================================
-
-        alice.RegistreraIEnKurs(programmering);
+        // Alice börjar kursen igen
+        alice.BörjaKurs(programmering);
 
         Console.WriteLine("\n--- Alice går med igen ---");
 
-        programmering.NärvaroLista();
-        alice.SkrivUtSchema();
+        programmering.VisaStudenter();
+        alice.VisaKurser();
 
 
-        // ==========================================
-        // Testa ToString()
-        // ==========================================
-
+        // Testar ToString()
         Console.WriteLine("\n--- Kurser ---");
 
         Console.WriteLine(programmering);

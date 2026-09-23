@@ -1,18 +1,18 @@
+
 using System;
 using System.Collections.Generic;
 
 public class Kurs
 {
-    // Kursens namn
+    // Information om kursen
     public string KursNamn { get; set; }
-
-    // Maximalt antal studenter
     public int MaxAntalStudenter { get; set; }
 
-    // Lista över studenter
+    // Studenter som går kursen
     public List<Student> Studenter { get; set; }
 
-    // Konstruktor
+
+    // Skapar en ny kurs
     public Kurs(string kursNamn, int maxAntalStudenter)
     {
         KursNamn = kursNamn;
@@ -20,89 +20,97 @@ public class Kurs
         Studenter = new List<Student>();
     }
 
-    // Registrerar en student
-    public void RegistreraStudent(Student student)
+
+    // Lägger till en student på kursen
+    public void LäggTillStudent(Student student)
     {
-        // Kontrollera dubbelregistrering
         if (Studenter.Contains(student))
         {
             Console.WriteLine(
-                $"{student.Namn} är redan registrerad i {KursNamn}."
+                $"{student.Namn} finns redan på kursen {KursNamn}."
             );
 
             return;
         }
 
-        // Kontrollera om kursen är full
-        if (Studenter.Count >= MaxAntalStudenter)
+
+        if (Studenter.Count == MaxAntalStudenter)
         {
             Console.WriteLine(
-                $"Kursen {KursNamn} är full."
+                $"Det finns inga lediga platser på {KursNamn}."
             );
 
             return;
         }
 
-        // Lägg till studenten i kursen
+
         Studenter.Add(student);
 
-        // Lägg till kursen hos studenten
+
+        // Kursen läggs även till hos studenten
         if (!student.Kurser.Contains(this))
         {
             student.Kurser.Add(this);
         }
 
+
         Console.WriteLine(
-            $"{student.Namn} har registrerats i {KursNamn}."
+            $"{student.Namn} är nu registrerad på {KursNamn}."
         );
     }
 
-    // Avregistrerar en student
-    public void AvregistreraStudent(Student student)
+
+    // Tar bort en student från kursen
+    public void TaBortStudent(Student student)
     {
         if (!Studenter.Contains(student))
         {
             Console.WriteLine(
-                $"{student.Namn} är inte registrerad i {KursNamn}."
+                $"{student.Namn} går inte på {KursNamn}."
             );
 
             return;
         }
 
-        // Ta bort studenten från kursen
+
         Studenter.Remove(student);
 
-        // Ta bort kursen från studentens lista
-        if (student.Kurser.Contains(this))
-        {
-            student.Kurser.Remove(this);
-        }
+
+        // Tar även bort kursen från studenten
+        student.Kurser.Remove(this);
+
 
         Console.WriteLine(
-            $"{student.Namn} har avregistrerats från {KursNamn}."
+            $"{student.Namn} har tagits bort från {KursNamn}."
         );
     }
 
-    // Skriver ut alla studenter i kursen
-    public void NärvaroLista()
+
+    // Visar vilka studenter som går kursen
+    public void VisaStudenter()
     {
-        Console.WriteLine($"\nNärvarolista för {KursNamn}:");
+        Console.WriteLine();
+        Console.WriteLine($"Studenter på {KursNamn}:");
+
 
         if (Studenter.Count == 0)
         {
-            Console.WriteLine("Inga studenter registrerade.");
+            Console.WriteLine("Det finns inga registrerade studenter.");
             return;
         }
 
+
         foreach (Student student in Studenter)
         {
-            Console.WriteLine($"- {student.Namn}");
+            Console.WriteLine(student.Namn);
         }
     }
 
-    // Skriver ut kursens information
+
+    // Visar kursens namn och antal platser
     public override string ToString()
     {
-        return $"{KursNamn} ({Studenter.Count}/{MaxAntalStudenter} platser)";
+        return $"{KursNamn} - {Studenter.Count} av {MaxAntalStudenter} platser används";
     }
 }
+

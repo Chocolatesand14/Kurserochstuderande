@@ -6,46 +6,52 @@ public class Student
     // Studentens namn
     public string Namn { get; set; }
 
-    // Kurser som studenten går
+    // Kurser som studenten är med i
     public List<Kurs> Kurser { get; set; }
 
-    // Konstruktor
+
+    // Skapar en ny student
     public Student(string namn)
     {
         Namn = namn;
         Kurser = new List<Kurs>();
     }
 
-    // Registrera studenten i en kurs
-    public void RegistreraIEnKurs(Kurs kurs)
+
+    // Lägger till studenten på en kurs
+    public void BörjaKurs(Kurs kurs)
     {
-        kurs.RegistreraStudent(this);
+        kurs.LäggTillStudent(this);
     }
 
-    // Avregistrera studenten från en kurs
-    public void AvregistreraFrånEnKurs(Kurs kurs)
+
+    // Tar bort studenten från en kurs
+    public void SlutaKurs(Kurs kurs)
     {
-        kurs.AvregistreraStudent(this);
+        kurs.TaBortStudent(this);
     }
 
-    // Skriver ut studentens kurser
-    public void SkrivUtSchema()
+
+    // Visar studentens kurser
+    public void VisaKurser()
     {
-        Console.WriteLine($"\nSchema för {Namn}:");
+        Console.WriteLine();
+        Console.WriteLine($"Kurser för {Namn}:");
 
         if (Kurser.Count == 0)
         {
-            Console.WriteLine("Inga kurser registrerade.");
+            Console.WriteLine("Studenten har inga kurser.");
             return;
         }
 
         foreach (Kurs kurs in Kurser)
         {
-            Console.WriteLine($"- {kurs.KursNamn}");
+            Console.WriteLine(kurs.KursNamn);
         }
     }
 
-    // Skriver ut studentens namn
+
+    // Gör att studentens namn visas som text
     public override string ToString()
     {
         return Namn;
