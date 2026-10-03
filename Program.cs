@@ -80,7 +80,17 @@ class Program
 
         // Visar att programmering finns bland Alices kurser igen.
         alice.Schedule();
+        
+        // Testar att Alice lämnar kursen från studentens håll
+        alice.Leave(programmering);
 
+        Console.WriteLine("\n--- Alice lämnar kursen ---");
+
+        // Visar vilka studenter som är kvar på kursen
+        programmering.RollCall();
+
+        // Visar vilka kurser Alice går efter hon har lämnat kursen.
+        alice.Schedule();
 
         // Testar ToString() för att visa information om kurserna.
         Console.WriteLine("\n--- Kurser ---");
