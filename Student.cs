@@ -7,7 +7,7 @@ public class Student
     public string Namn { get; set; }
 
     // Lista med kurser som studenten är med i.
-    public List<Kurs> Kurser { get; set; }
+    public List<Course> Courses { get; set; }
 
 
     // Skapar en ny student och sparar studentens namn.

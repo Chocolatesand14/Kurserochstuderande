@@ -5,35 +5,34 @@ using System;
 using System.Collections.Generic;
 
 
-public class Kurs
+public class Course
 {
     // Information om kursen.
-    public string KursNamn { get; set; }
-    public int MaxAntalStudenter { get; set; }
+    public string Name { get; set; }
+    public int MaxSeats { get; set; }
 
     // Lista med alla studenter som går kursen.
-    public List<Student> Studenter { get; set; }
-
+    public List<Student> Students { get; set; }
 
     // Skapar en ny kurs och anger kursens namn och max antal studenter.
-    public Kurs(string kursNamn, int maxAntalStudenter)
+    public Course(string name, int maxSeats)
     {
-        KursNamn = kursNamn;
-        MaxAntalStudenter = maxAntalStudenter;
-
+        Name = name;
+        MaxSeats = maxSeats;
         // Skapar en tom lista där studenterna kan läggas till.
-        Studenter = new List<Student>();
-    }
+        Students = new List<Student>();
+    
+    } 
 
 
     // Lägger till en student på kursen.
-    public void LäggTillStudent(Student student)
+    public void Enroll(Student student)
     {
         // Kontrollerar om studenten redan finns på kursen.
-        if (Studenter.Contains(student))
+        if (Students.Contains(student))
         {
             Console.WriteLine(
-                $"{student.Namn} finns redan på kursen {KursNamn}."
+                $"{student.Namn} finns redan på kursen {Coursename}."
             );
 
             return;
@@ -41,7 +40,7 @@ public class Kurs
 
 
         // Kontrollerar om kursen redan har nått maxantalet studenter.
-        if (Studenter.Count >= MaxAntalStudenter)
+        if (Students.Count >= MaxSeats)
         {
             Console.WriteLine(
                 $"Det finns inga lediga platser på {KursNamn}."
@@ -52,27 +51,27 @@ public class Kurs
 
 
         // Lägger till studenten i kursens lista.
-        Studenter.Add(student);
+        Students.Add(student);
 
 
         // Lägger även till kursen i studentens lista över kurser.
-        if (!student.Kurser.Contains(this))
+        if (!student.Courses.Contains(this))
         {
-            student.Kurser.Add(this);
+            student.Courses.Add(this);
         }
 
 
         Console.WriteLine(
-            $"{student.Namn} är nu registrerad på {KursNamn}."
+            $"{student.Namn} är nu registrerad på {Coursename}."
         );
     }
 
 
     // Tar bort en student från kursen.
-    public void TaBortStudent(Student student)
+    public void Remove(Student student)
     {
         // Kontrollerar om studenten finns på kursen.
-        if (!Studenter.Contains(student))
+        if (!Students.Contains(student))
         {
             Console.WriteLine(
                 $"{student.Namn} går inte på {KursNamn}."
@@ -83,11 +82,11 @@ public class Kurs
 
 
         // Tar bort studenten från kursens lista.
-        Studenter.Remove(student);
+        Students.Remove(student);
 
 
         // Tar även bort kursen från studentens lista över kurser.
-        student.Kurser.Remove(this);
+        student.Courses.Remove(this);
 
 
         Console.WriteLine(
@@ -97,14 +96,14 @@ public class Kurs
 
 
     // Visar vilka studenter som går kursen.
-    public void VisaStudenter()
+    public void RollCall()
     {
         Console.WriteLine();
         Console.WriteLine($"Studenter på {KursNamn}:");
 
 
         // Kontrollerar om det finns några registrerade studenter.
-        if (Studenter.Count == 0)
+        if (Students.Count == 0)
         {
             Console.WriteLine("Det finns inga registrerade studenter.");
             return;
@@ -112,7 +111,7 @@ public class Kurs
 
 
         // Går igenom listan och visar varje students namn.
-        foreach (Student student in Studenter)
+        foreach (Student student in Students)
         {
             Console.WriteLine(student.Namn);
         }
@@ -122,7 +121,7 @@ public class Kurs
     // Visar kursens namn och hur många platser som används.
     public override string ToString()
     {
-        return $"{KursNamn} - {Studenter.Count} av {MaxAntalStudenter} platser används";
+        return $"{Name} - {Students.Count} av {MaxSeats} platser används";
     }
 }
 

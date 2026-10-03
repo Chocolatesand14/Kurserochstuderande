@@ -5,10 +5,10 @@ class Program
     static void Main(string[] args)
     {
         // Skapar kurser med ett kursnamn och ett maxantal studenter.
-        Kurs programmering = new Kurs("Programmering", 2);
-        Kurs matematik = new Kurs("Matematik", 3);
-        Kurs bildOchForm = new Kurs("Bild och Form", 4);
-        Kurs psykologi = new Kurs("Psykologi", 2);
+        Course programmering = new Course("Programmering", 2);
+        Course matematik = new Course("Matematik", 3);
+        Course bildOchForm = new Course("Bild och Form", 4);
+        Course psykologi = new Course("Psykologi", 2);
 
 
         // Skapar tre studenter.
@@ -18,10 +18,10 @@ class Program
 
 
         // Lägger till Alice på programmeringskursen genom kursen.
-        programmering.LäggTillStudent(alice);
+        programmering.Enroll(alice);
 
         // Visar vilka studenter som går programmeringskursen.
-        programmering.VisaStudenter();
+        programmering.RollCall();
 
         // Visar vilka kurser Alice går.
         alice.VisaKurser();
@@ -31,7 +31,7 @@ class Program
         bob.BörjaKurs(programmering);
 
         // Visar vilka studenter som går programmeringskursen.
-        programmering.VisaStudenter();
+        programmering.RollCall();
 
         // Visar vilka kurser Bob går.
         bob.VisaKurser();
