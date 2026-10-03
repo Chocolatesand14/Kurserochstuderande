@@ -4,47 +4,46 @@ using System.Collections.Generic;
 public class Student
 {
     // Studentens namn.
-    public string Namn { get; set; }
+    public string Name { get; set; }
 
     // Lista med kurser som studenten är med i.
     public List<Course> Courses { get; set; }
 
 
     // Skapar en ny student och sparar studentens namn.
-    public Student(string namn)
+    public Student(string name)
     {
-        Namn = namn;
+        Name = name;
 
         // Skapar en tom lista där studentens kurser kan läggas till.
-        Kurser = new List<Kurs>();
+        Courses = new List<Course>();
     }
 
 
     // Lägger till studenten på en kurs.
-    public void BörjaKurs(Kurs kurs)
+    public void Join(Course course)
     {
         // Skickar studenten till kursens metod för att lägga till studenten.
-        kurs.LäggTillStudent(this);
+        course.Enroll(this);
     }
 
 
     // Tar bort studenten från en kurs.
-    public void SlutaKurs(Kurs kurs)
+    public void Leave(Course course)
     {
         // Skickar studenten till kursens metod för att ta bort studenten.
-        kurs.TaBortStudent(this);
+        course.Remove(this);
     }
 
 
     // Visar vilka kurser studenten går.
-    public void VisaKurser()
+    public void Schedule()
     {
         Console.WriteLine();
-        Console.WriteLine($"Kurser för {Namn}:");
-
+        Console.WriteLine($"Kurser för {Name}:");
 
         // Kontrollerar om studenten inte går någon kurs.
-        if (Kurser.Count == 0)
+        if (Courses.Count == 0)
         {
             Console.WriteLine("Studenten har inga kurser.");
             return;
@@ -52,9 +51,9 @@ public class Student
 
 
         // Går igenom studentens kurser och visar kursnamnen.
-        foreach (Kurs kurs in Kurser)
+        foreach (Course course in Courses)
         {
-            Console.WriteLine(kurs.KursNamn);
+            Console.WriteLine(course.Name);
         }
     }
 
@@ -62,6 +61,6 @@ public class Student
     // Gör att studentens namn visas när objektet skrivs ut.
     public override string ToString()
     {
-        return Namn;
+        return Name;
     }
 }
