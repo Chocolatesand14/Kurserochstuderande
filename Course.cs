@@ -32,7 +32,7 @@ public class Course
         if (Students.Contains(student))
         {
             Console.WriteLine(
-                $"{student.Namn} finns redan på kursen {Coursename}."
+                $"{student.Name} finns redan på kursen {Name}."
             );
 
             return;
@@ -43,7 +43,7 @@ public class Course
         if (Students.Count >= MaxSeats)
         {
             Console.WriteLine(
-                $"Det finns inga lediga platser på {KursNamn}."
+                $"Det finns inga lediga platser på {Name}."
             );
 
             return;
@@ -62,7 +62,7 @@ public class Course
 
 
         Console.WriteLine(
-            $"{student.Namn} är nu registrerad på {Coursename}."
+            $"{student.Name} är nu registrerad på {Name}."
         );
     }
 
@@ -74,7 +74,7 @@ public class Course
         if (!Students.Contains(student))
         {
             Console.WriteLine(
-                $"{student.Namn} går inte på {KursNamn}."
+                $"{student.Name} går inte på {Name}."
             );
 
             return;
@@ -90,7 +90,7 @@ public class Course
 
 
         Console.WriteLine(
-            $"{student.Namn} har tagits bort från {KursNamn}."
+            $"{student.Name} har tagits bort från {Name}."
         );
     }
 
@@ -99,21 +99,21 @@ public class Course
     public void RollCall()
     {
         Console.WriteLine();
-        Console.WriteLine($"Studenter på {KursNamn}:");
+        Console.WriteLine($"Studenter på {Name}:");
 
 
         // Kontrollerar om det finns några registrerade studenter.
         if (Students.Count == 0)
         {
             Console.WriteLine("Det finns inga registrerade studenter.");
-            return;
+            return; 
         }
 
 
         // Går igenom listan och visar varje students namn.
         foreach (Student student in Students)
         {
-            Console.WriteLine(student.Namn);
+            Console.WriteLine(student.Name);
         }
     }
 

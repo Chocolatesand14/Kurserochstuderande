@@ -24,62 +24,62 @@ class Program
         programmering.RollCall();
 
         // Visar vilka kurser Alice går.
-        alice.VisaKurser();
+        alice.Schedule();
 
 
         // Lägger till Bob på programmeringskursen genom studenten.
-        bob.BörjaKurs(programmering);
+        bob.Join(programmering);
 
         // Visar vilka studenter som går programmeringskursen.
         programmering.RollCall();
 
         // Visar vilka kurser Bob går.
-        bob.VisaKurser();
+        bob.Schedule();
 
 
         // Testar vad som händer när kursen är full.
-        draven.BörjaKurs(programmering);
+        draven.Join(programmering);
 
 
         // Testar vad som händer när samma student försöker gå kursen igen.
-        bob.BörjaKurs(programmering);
+        bob.Join(programmering);
 
 
         // Visar vilka kurser varje student går.
         Console.WriteLine("\n--- Studenternas kurser ---");
 
-        alice.VisaKurser();
-        bob.VisaKurser();
-        draven.VisaKurser();
+        alice.Schedule();
+        bob.Schedule();
+        draven.Schedule();
 
 
         // Tar bort Alice från programmeringskursen.
-        programmering.TaBortStudent(alice);
+        programmering.Remove(alice);
 
         Console.WriteLine("\n--- Efter att Alice tagits bort ---");
 
         // Visar vilka studenter som är kvar på kursen.
-        programmering.VisaStudenter();
+        programmering.RollCall();
 
         // Visar vilka kurser Alice går efter att hon tagits bort.
-        alice.VisaKurser();
+        alice.Schedule();
 
 
         // Testar vad som händer när man försöker ta bort en student
         // som inte går på kursen.
-        programmering.TaBortStudent(draven);
+        programmering.Remove(draven);
 
 
         // Lägger till Alice på programmeringskursen igen.
-        alice.BörjaKurs(programmering);
+        alice.Join(programmering);
 
         Console.WriteLine("\n--- Alice går med igen ---");
 
         // Visar att Alice nu finns på kursen igen.
-        programmering.VisaStudenter();
+        programmering.RollCall();
 
         // Visar att programmering finns bland Alices kurser igen.
-        alice.VisaKurser();
+        alice.Schedule();
 
 
         // Testar ToString() för att visa information om kurserna.
